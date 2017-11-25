@@ -1,0 +1,112 @@
+#include<stdio.h>
+#include<iostream>
+#include<limits.h>
+ 
+int min(int x, int y, int z);
+ 
+int findMaxPath(int** mat,int n,int m)
+{
+    // To find max val in first row
+    //printf("findMaxPath start");
+    int i=0;
+    int j=0;
+    while(i<n && j< m){
+         //std::cout << "main lopp: " <<"i: " <<i  << " "<< "j: " << j<< std::endl;
+    for (int j_i = j; j_i < n; j_i++){
+        if(j_i-1 >=0 && i-1 >=0 ){
+        mat[i][j_i] = mat[i][j_i] + mat[i][j_i-1] + mat[i-1][j_i];    
+        }else if(j_i-1 >=0){
+            mat[i][j_i] = mat[i][j_i] + mat[i][j_i-1];
+        }else if(i-1>=0){
+            mat[i][j_i] = mat[i][j_i] + mat[i-1][j_i];
+        }
+        
+        //std::cout << "i loop"<< "mat[" << i << "][" << j_i << "]: " << mat[i][j_i] << std::endl;
+    }
+    for (int i_i = i+1; i_i < m; i_i++){
+        
+        if(i_i-1 >=0 && j-1 >=0 ){
+        mat[i_i][j] = mat[i_i][j] + mat[i_i][j-1] + mat[i_i-1][j];    
+        }else if(i_i-1 >=0){
+            mat[i_i][j] = mat[i_i][j] + mat[i_i-1][j];
+        }else if(j-1>=0){
+            mat[i_i][j] = mat[i_i][j] + mat[i_i][j-1];
+        }
+         
+         
+       
+        //std::cout << "j lopp" <<"mat[" << i << "][" << i_i << "]: " << mat[i_i][j] << std::endl;
+    }
+    i++;
+    j++;
+    }
+    
+ 
+ 
+    
+        //std::cout << "printing elements: " << std::endl;
+        /* for(int i_i=0;i_i<n;i_i++){
+           for(int j_i=0;j_i<m;j_i++){
+               printf("%d ",mat[i_i][j_i]);
+           }
+           printf("\n");
+       }*/
+        return mat[n-1][m-1];
+    }
+/* A utility function that returns minimum of 3 integers */
+int min(int x, int y, int z)
+{
+   if (x < y)
+      return (x < z)? x : z;
+   else
+      return (y < z)? y : z;
+}
+ 
+/* Driver program to test above functions */
+int main()
+{
+   int testcases;
+   scanf("%d",&testcases);
+   //printf("%d",testcases);
+   for(int testIndex =0;testIndex<testcases;testIndex++){
+       //printf("testcases: %d\n", testcases );
+       int n;
+       int m;
+       int k;
+       scanf("%d",&n);
+       scanf("%d",&m);
+       scanf("%d",&k);
+       int **arr = (int **)malloc(n * sizeof(int *));
+       for(int i=0;i<n;i++){
+           arr[i] = (int *)malloc(m * sizeof(int));
+       }
+      
+       
+       for(int i=0;i<n;i++){
+           for(int j=0;j<m;j++){
+            arr[i][j] =0;
+           }
+           
+       }
+       
+       for(int i=0;i<k;i++){
+           int k_i;
+           int k_j;
+           scanf("%d",&k_i);
+           scanf("%d",&k_j);
+           scanf("%d",&arr[k_i-1][k_j-1]);
+       }
+      
+       
+       
+       printf("%d", findMaxPath(arr, n, m));
+       
+       for (int i=0; i<n; ++i) {
+        free(arr[i]);
+        }
+       
+       free(arr);
+   }
+   
+   return 0;
+}

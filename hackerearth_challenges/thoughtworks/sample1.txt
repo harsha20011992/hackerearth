@@ -1,0 +1,35 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+        
+int calculateMinimumDiff(int array[], int arrayLength, int numberOfInputsChosen)
+{
+    int minDiff=10001;
+    for(int i = 0; i <= arrayLength - numberOfInputsChosen; i++)
+        minDiff = min( minDiff, array[i + numberOfInputsChosen - 1] - array[ i ]);
+    return minDiff;
+}
+        
+int main()
+{
+    int numberOfTests;
+    cin >> numberOfTests;
+    for (int testCounter=0; testCounter < numberOfTests; testCounter++) {
+        int numberOfInputs;
+		long maximumBound;
+        cin >> numberOfInputs >> maximumBound;
+        int *array = (int *) malloc( numberOfInputs * sizeof(int));
+        for(int inputCounter = 0; inputCounter < numberOfInputs; inputCounter++){
+            cin >> array[inputCounter];
+        }
+		sort(array, array + numberOfInputs);
+        for(int inputCounter = numberOfInputs; inputCounter >= 1; inputCounter--) {
+            long minimumDiff = inputCounter * calculateMinimumDiff( array, numberOfInputs, inputCounter);
+            if(minimumDiff <= maximumBound) {
+                cout << inputCounter << " " << minimumDiff << endl;
+                break;
+            }
+        }
+    }
+    return 0;
+}

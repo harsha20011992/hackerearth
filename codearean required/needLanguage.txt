@@ -1,0 +1,16 @@
+in c++:
+1. hashmap in c++
+2. list in c++
+3. how to do modulo in long number
+4. find range of all numbers in c++
+5. Hashset in c++
+
+------------------------------
+linked list in c++
+Trees in c++
+Graphs in c++
+------------------------------
+Need to understand how to moudulo of a large nummber[10^9 + 7].
+need to have a code runner[IDE] which checks for timelimit conditions by giving large inputs 
+why malloc is increasing time in c when arr[100000][100000]
+how to calculate maximum paths for a matrix which has large value of [10000] [10000]

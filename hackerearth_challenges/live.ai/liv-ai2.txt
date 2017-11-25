@@ -1,0 +1,43 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int calculate(string N){
+   int j=1;	
+   int counter =0;
+   int length = N.length(); 
+for(int i=0;i<length/2 + 1;i++){
+    if(N[j] == '0'){
+    	i++;
+    	j++;
+    }
+    //cout<<"i: "<<i << " j: "<< j  << endl;
+    string prefix = N.substr(0,i+1);
+   // cout << "prefix: " <<prefix << endl;
+    //cout << "j+i: " << j+i; 
+    string suffix = N.substr(j,i+1);
+    //cout << "sufix: " <<suffix << endl;
+    
+    if(prefix.compare(suffix) == 0){
+    	
+    	counter++;
+    	//cout<<counter << endl;
+    }
+    j++;
+    
+    }
+    return counter;
+}
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	string N;
+	getline(cin,N);
+	
+	int out_;
+	out_ = calculate(N);
+	
+	cout<< out_;
+	return 0;
+}   

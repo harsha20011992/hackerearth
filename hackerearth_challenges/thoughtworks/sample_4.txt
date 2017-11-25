@@ -1,0 +1,51 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int numberOfTests;
+
+int calculateMinimumDiff(int array[], int arrayLength, int numberOfInputsChosen,int maximumBound)
+{
+     int maxDiff=-1;
+     maximumBound = maximumBound/numberOfInputsChosen;
+    
+    for (int i=0; i<=arrayLength-numberOfInputsChosen; i++){
+
+      int diff1 = ((int)(array[i+numberOfInputsChosen-1] - array[ i ]));
+      if(diff1 <= maximumBound && diff1 > maxDiff ){
+          maxDiff = diff1;
+      }
+    }
+    return maxDiff;
+}
+        
+int main()
+{
+    int numberOfInputs;
+    int maximumBound;
+    int inputCounter;
+    int array[50000];
+    scanf("%d",&numberOfTests);
+    while(numberOfTests--) {
+        
+        scanf("%d %d",&numberOfInputs,&maximumBound);
+        
+       
+        for(inputCounter = 0; inputCounter < numberOfInputs; inputCounter++){
+            scanf("%d",&array[inputCounter]);
+        }
+       
+        sort(array,array+numberOfInputs);
+        inputCounter = numberOfInputs;
+       
+        while(inputCounter--) {
+            int maxDiff = calculateMinimumDiff( array, numberOfInputs, inputCounter,maximumBound);
+            if(maxDiff > -1){
+                printf("%d %d\n",inputCounter,maxDiff*inputCounter);
+                break;
+            }
+            
+            
+        }
+    }
+    return 0;
+}

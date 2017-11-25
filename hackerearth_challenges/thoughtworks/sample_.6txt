@@ -1,0 +1,59 @@
+//#include<stdio.h>
+//#include<stdlib.h>
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int numberOfTests;
+ 
+/*int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}*/
+
+
+long calculateMinimumDiff(int array[], int arrayLength, int numberOfInputsChosen,long maximumBound)
+{
+     long maxDiff=-1;
+     maximumBound = maximumBound/numberOfInputsChosen;
+    
+    for (int i=0; i<=arrayLength-numberOfInputsChosen; i++){
+
+      long diff1 = ((long)(array[i+numberOfInputsChosen-1] - array[ i ]));
+      if(diff1 <= maximumBound && diff1 > maxDiff ){
+          maxDiff = diff1;
+      }
+    }
+    return maxDiff;
+}
+        
+int main()
+{
+    int numberOfInputs;
+    long maximumBound;
+    int inputCounter;
+    int array[50000];
+    scanf("%d",&numberOfTests);
+    while(numberOfTests--) {
+        
+        scanf("%d %ld",&numberOfInputs,&maximumBound);
+        
+       
+        for(inputCounter = 0; inputCounter < numberOfInputs; inputCounter++){
+            scanf("%d",&array[inputCounter]);
+        }
+        //qsort(array, numberOfInputs,sizeof(int), cmpfunc);
+        sort(array,array+numberOfInputs);
+        inputCounter = numberOfInputs;
+        //for(int inputCounter = numberOfInputs; inputCounter >= 1; inputCounter--) {
+        while(inputCounter--) {
+            long maxDiff = calculateMinimumDiff( array, numberOfInputs, inputCounter,maximumBound);
+            //if(!((maxDiff & 0x80000000) >> 31 | !maxDiff)) { //
+            if(maxDiff > -1){
+                printf("%d %ld\n",inputCounter,maxDiff*inputCounter);
+                break;
+            }
+            
+            
+        }
+    }
+    return 0;
+}

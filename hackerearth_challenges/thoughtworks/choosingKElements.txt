@@ -1,0 +1,57 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+        
+long max(long a,long b){
+	if(a > b) {
+		return a;
+	}
+	return b; 
+}	
+		
+long calculateMinimumDiff(int array[], int arrayLength, int numberOfInputsChosen,long maximumBound)
+{
+    /*long maxDiff=-1;
+    for(int i = 0; i <= arrayLength - numberOfInputsChosen; i++)
+		long diff = (array[i + numberOfInputsChosen - 1] - array[ i ])*numberOfInputsChosen;
+		if(diff <= maximumBound){
+		maxDiff = max( maxDiff, diff);		
+		}
+    return maxDiff;*/
+    long maxDiff=-1;
+    for(int i=arrayLength-1;i>=numberOfInputsChosen-1;i--){
+        int j=0;
+        while(i-j+1 >=numberOfInputsChosen){
+            long diff = (array[i] - array[ j ])*numberOfInputsChosen;
+            if(diff <= maximumBound){
+		        maxDiff = max( maxDiff, diff);		
+		        }
+            j++;
+        }
+    }
+    return maxDiff;
+}
+        
+int main()
+{
+    int numberOfTests;
+    cin >> numberOfTests;
+    for (int testCounter=0; testCounter < numberOfTests; testCounter++) {
+        int numberOfInputs;
+		long maximumBound;
+        cin >> numberOfInputs >> maximumBound;
+        int *array = (int *) malloc( numberOfInputs * sizeof(int));
+        for(int inputCounter = 0; inputCounter < numberOfInputs; inputCounter++){
+            cin >> array[inputCounter];
+        }
+		sort(array, array + numberOfInputs);
+        for(int inputCounter = numberOfInputs; inputCounter >= 1; inputCounter--) {
+            long minimumDiff = calculateMinimumDiff( array, numberOfInputs, inputCounter,maximumBound);
+            if(minimumDiff > -1) {
+                cout << inputCounter << " " << minimumDiff << endl;
+                break;
+            }
+        }
+    }
+    return 0;
+}
